@@ -1,0 +1,32 @@
+{
+  "name": "next-next-auth",
+  "version": "0.1.0",
+  "author": "wahidari",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@headlessui/react": "^1.6.4",
+    "@heroicons/react": "^2.0.11",
+    "@tailwindcss/forms": "^0.5.2",
+    "axios": "^0.27.2",
+    "jsonwebtoken": "^8.5.1",
+    "next": "^12.2.0",
+    "next-auth": "^4.10.3",
+    "nookies": "^2.5.2",
+    "prismjs": "^1.29.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.7",
+    "eslint": "8.16.0",
+    "eslint-config-next": "^12.3.0",
+    "postcss": "^8.4.14",
+    "tailwindcss": "^3.0.24"
+  }
+}

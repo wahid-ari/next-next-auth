@@ -370,7 +370,7 @@ export default function Signout() {
     localStorage.removeItem("user-id");
     localStorage.removeItem("user-name");
     localStorage.removeItem("user-email");
-    Router.replace("/login");
+    Router.replace("/signin");
   }, []);
 
   signOut({ callbackUrl: '/signin' });

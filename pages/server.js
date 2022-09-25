@@ -1,11 +1,11 @@
 import Head from 'next/head';
-import Footer from '@components/Footer';
-import Navbar from '@components/Navbar';
-import Layout from '@components/Layout';
+import { useRouter } from 'next/router';
 import { useSession } from "next-auth/react";
 import { authOptions } from 'pages/api/auth/[...nextauth]';
 import { unstable_getServerSession } from "next-auth/next";
-import { useRouter } from 'next/router';
+import Footer from '@components/Footer';
+import Navbar from '@components/Navbar';
+import Layout from '@components/Layout';
 
 export default function Server() {
   const router = useRouter();

@@ -1,8 +1,8 @@
 import Head from "next/head";
+import { useSession } from "next-auth/react";
 import Footer from "@components/Footer"
 import Navbar from "@components/Navbar";
 import Layout from "@components/Layout";
-import { useSession } from "next-auth/react";
 
 Secret.auth = true
 

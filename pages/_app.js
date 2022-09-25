@@ -1,11 +1,11 @@
+import { useRouter } from "next/router";
+import { SessionProvider, useSession } from "next-auth/react";
 import { GlobalProvider } from "@utils/GlobalContext";
 import { AxiosConfigProvider } from "@utils/useAxiosConfig";
-import { SessionProvider, useSession } from "next-auth/react";
 import { AuthProvider } from "@utils/AuthContext";
+import FullPageLoader from "@components/FullPageLoader";
 import "@styles/globals.css";
 import "@styles/prism.css";
-import FullPageLoader from "@components/FullPageLoader";
-import { useRouter } from "next/router";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 

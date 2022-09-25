@@ -1,18 +1,26 @@
-import { createContext, useEffect, useState } from "react";
-import { useSession } from "next-auth/react"
+import { createContext, useState, useEffect } from "react";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 import FullPageLoader from "@components/FullPageLoader";
+import NeedSignin from "@components/NeedSignin";
 
-export const AuthContext = createContext();
+export const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-
-  const { status, data: session } = useSession();
   const router = useRouter()
-  const protectedRoute = ["admin"]
   const [userId, setUserId] = useState();
   const [userName, setUserName] = useState();
   const [userEmail, setUserEmail] = useState();
+  
+  const protectedRoute = ["admin"]
+  const path = router.pathname.split("/").slice(1, 2)
+  if (path[0] == "") {
+    path[0] = "/"
+  }
+
+  const privateRoute = protectedRoute.includes(path[0])
+
+  const { data: session, status} = useSession();
 
   useEffect(() => {
     if (session != null) {
@@ -25,31 +33,18 @@ export function AuthProvider({ children }) {
     }
   }, [session]);
 
-  /**
-   * split route by "/". ex : "dashboard/pages" to ["dashboard", "pages"] 
-   * then take only first item ["dashboard"] 
-   * if in index page, set to "/"
-   */
-  const path = router.pathname.split("/").slice(1, 2)
-  if (path[0] == "") {
-    path[0] = "/"
-  }
-
-  /**
-   * if current route in protectedRoute and user not authenticated,
-   * show SignIn Page
-   */
-
-  // Push to SignIn Page if user not authenticated
-  if (protectedRoute.includes(path[0]) && status === "loading") {
+  if (status === "loading" && privateRoute) {
     return <FullPageLoader />
   }
-  if (protectedRoute.includes(path[0]) && status === "unauthenticated") {
-    router.push("/signin")
+
+  // pass to another component because if push directly to /signin page, 
+  // content being flashed for a few second
+  if (status === "unauthenticated" && privateRoute) {
+    return <NeedSignin />
   }
 
   return (
-    <AuthContext.Provider value={{ userId, setUserId, userName, setUserName, userEmail, setUserEmail }}>
+    <AuthContext.Provider value={{ userId, userName, userEmail }}>
       {children}
     </AuthContext.Provider>
   );
